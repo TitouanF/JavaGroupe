@@ -42,6 +42,7 @@ public class FenFXML_ConfirmationInscriptionControleur implements Initializable
         txtSession.setText(MainApp.getMaSessionSelectionnee().getLibFormation());
         txtNbInscrits.setText(String.valueOf(MainApp.getMaSessionSelectionnee().getNb_inscrits()));
         txtNbPlaces.setText(String.valueOf(MainApp.getMaSessionSelectionnee().getNb_places()));
+        System.out.println("modif");
     }
     
     @FXML
