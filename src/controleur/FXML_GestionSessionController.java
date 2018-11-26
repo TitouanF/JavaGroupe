@@ -1,27 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controleur;
-
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import modele.GestionSql;
+import modele.Session;
 
-/**
- * FXML Controller class
- *
- * @author Titouan FLOCH
- */
-public class FXML_GestionSessionController implements Initializable {
+public class FXML_GestionSessionController implements Initializable 
+    {
+        @FXML
+        TableView<Session> tableSessions;
+        @FXML
+        TableColumn<Session,String> colID;
+        @FXML
+        TableColumn<Session,String> colLibelle;
+        @FXML
+        TableColumn<Session,String> colDate;
+        @FXML
+        TableColumn<Session,String> colNbPlaces;
+        @FXML
+        TableColumn<Session,String> colNbInscrits;
+        static ObservableList<Session> lesSessions = FXCollections.observableArrayList();
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
-}
+        @Override
+        public void initialize(URL url, ResourceBundle rb) 
+            {
+                colID.setCellValueFactory(new PropertyValueFactory<Session,String>("id"));
+                colLibelle.setCellValueFactory(new PropertyValueFactory<Session,String>("libFormation"));
+                colDate.setCellValueFactory(new PropertyValueFactory<Session,String>("date_debut"));
+                colNbPlaces.setCellValueFactory(new PropertyValueFactory<Session,String>("nb_places"));
+                colNbInscrits.setCellValueFactory(new PropertyValueFactory<Session,String>("nb_inscrits"));
+                lesSessions = GestionSql.getLesSessions();
+                tableSessions.setItems(lesSessions);
+            }    
+
+    }

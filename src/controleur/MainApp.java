@@ -9,6 +9,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import modele.Client;
 import modele.Session;
+import javafx.event.ActionEvent;
 
 /**
  *
@@ -31,18 +33,19 @@ public class MainApp extends Application
     private static Session maSessionSelectionne;
     // Pour conserver le client sélectionné dans le ComboBox de la fenêtre inscription
     private static Client monClientSelectionne;
-    
+    private AnchorPane rootLayout;
     @Override
     public void start(Stage primaryStage)
     {
         this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("Gestion des inscriptions aux sessions de formations");
         try
-        {
-            this.primaryStage.setTitle("Gestion des inscriptions aux sessions de formations");
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/vue/FenFXML_Inscription.fxml"));
-            AnchorPane rootLayout = (AnchorPane) loader.load();
+        {          
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/vue/FenFXML_Accueil.fxml"));
+            rootLayout = (AnchorPane) loader.load();
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+            FXML_AccueilController controleur2 = loader.getController();
             primaryStage.show();
         }
         catch (IOException e)
@@ -50,7 +53,6 @@ public class MainApp extends Application
             System.out.println("Erreur chargement fenetre principale : " + e.getMessage());
         }
     }
-    
     public void creationFenConfirm()
     {
         

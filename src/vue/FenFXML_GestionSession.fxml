@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -9,15 +10,20 @@
 
 <AnchorPane id="AnchorPane" prefHeight="514.0" prefWidth="838.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controleur.FXML_GestionSessionController">
    <children>
-      <TableView layoutX="62.0" layoutY="92.0" prefHeight="331.0" prefWidth="714.0">
+      <TableView fx:id="tableSessions" layoutX="131.0" layoutY="92.0" prefHeight="331.0" prefWidth="577.0">
         <columns>
-          <TableColumn prefWidth="105.0" text="ID session" />
-          <TableColumn prefWidth="99.0" text="Libellé" />
-            <TableColumn prefWidth="102.0" text="Date" />
-            <TableColumn prefWidth="131.0" text="nombres inscrit" />
-            <TableColumn prefWidth="133.0" text="taux remplissage" />
-            <TableColumn prefWidth="143.0" text="nombre absents" />
+          <TableColumn fx:id="colID" prefWidth="105.0" text="ID session" />
+          <TableColumn fx:id="colLibelle" prefWidth="99.0" text="Libellé" />
+            <TableColumn fx:id="colDate" prefWidth="102.0" text="Date" />
+            <TableColumn fx:id="colNbPlaces" prefWidth="131.0" text="nombres places" />
+            <TableColumn fx:id="colNbInscrits" prefWidth="142.0" text="nombre inscrits" />
         </columns>
       </TableView>
+      <Label layoutX="235.0" layoutY="22.0" text="gestion des sessions" textFill="RED">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <Button layoutX="589.0" layoutY="432.0" mnemonicParsing="false" text="Afficher détails" />
    </children>
 </AnchorPane>

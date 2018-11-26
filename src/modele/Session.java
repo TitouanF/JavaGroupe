@@ -16,7 +16,8 @@ public class Session
     private int id;
     private String libFormation;
     private Date date_debut;
-    private int nb_places, nb_inscrits;
+    private int nb_places;
+    private int nb_inscrits;
     
     public Session(int id, String libFormation, Date date_debut, int nb_places, int nb_inscrits)
     {

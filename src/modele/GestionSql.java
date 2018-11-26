@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.GregorianCalendar;
 import javafx.collections.FXCollections;
 import sql.GestionBdd;
@@ -17,7 +18,8 @@ import javafx.collections.ObservableList;
 
 public class GestionSql
 {
-    
+    static ObservableList<Session> lesSessions = FXCollections.observableArrayList();
+    static ObservableList<Session> lesSessions2 = FXCollections.observableArrayList();
     //Requete permettant de retourner l'ensemble des clients
     public static ObservableList<Client> getLesClients()
     {
@@ -53,7 +55,7 @@ public class GestionSql
         Connection conn;
         Statement stmt1;
         Session maSession;
-        ObservableList<Session> lesSessions = FXCollections.observableArrayList();
+        
         try
         {
             // On prévoit 2 connexions à la base
@@ -88,35 +90,56 @@ public class GestionSql
     //la mise à jour de la table session_formation (+1 inscrit) et
     //la mise à jour de la table plan_formation (effectue passe à 1)
     public static void insereInscription(int matricule, int session_formation_id)
-    {
-        Statement stmt1;
-        
-        GregorianCalendar dateJour = new GregorianCalendar();
-        String ddate = dateJour.get(GregorianCalendar.YEAR) + "-" + (dateJour.get(GregorianCalendar.MONTH) + 1) + "-" + dateJour.get(GregorianCalendar.DATE);
-        // Insertion dans la table inscription
-        String req = "Insert into inscription(client_id, session_formation_id, date_inscription) values (" + matricule;
-        req += ", " + session_formation_id + ",'" + ddate + "')";
-        // M.A.J de la table session_formation (un inscrit de plus)
-        String req2 = "Update session_formation set nb_inscrits = nb_inscrits +1 Where id = " + session_formation_id;
-        // Récupération du numéro de la session concernée
-        String req3 = "Select formation_id from session_formation where id = " + session_formation_id;
-        stmt1 = GestionBdd.connexionBdd(GestionBdd.TYPE_MYSQL, "formarmor", "localhost", "root", "");
-        ResultSet rs = GestionBdd.envoiRequeteLMD(stmt1, req3);
-        int numForm=0;
-        try
         {
-            rs.first();
-            numForm = rs.getInt(1);
+            Statement stmt1;
+
+            GregorianCalendar dateJour = new GregorianCalendar();
+            String ddate = dateJour.get(GregorianCalendar.YEAR) + "-" + (dateJour.get(GregorianCalendar.MONTH) + 1) + "-" + dateJour.get(GregorianCalendar.DATE);
+            // Insertion dans la table inscription
+            String req = "Insert into inscription(client_id, session_formation_id, date_inscription) values (" + matricule;
+            req += ", " + session_formation_id + ",'" + ddate + "')";
+            // M.A.J de la table session_formation (un inscrit de plus)
+            String req2 = "Update session_formation set nb_inscrits = nb_inscrits +1 Where id = " + session_formation_id;
+            // Récupération du numéro de la session concernée
+            String req3 = "Select formation_id from session_formation where id = " + session_formation_id;
+            stmt1 = GestionBdd.connexionBdd(GestionBdd.TYPE_MYSQL, "formarmor", "localhost", "root", "");
+            ResultSet rs = GestionBdd.envoiRequeteLMD(stmt1, req3);
+            int numForm=0;
+            try
+            {
+                rs.first();
+                numForm = rs.getInt(1);
+            }
+            catch(Exception e)
+            {
+                System.out.println("Erreur requete3 " + e.getMessage());
+            }
+            // M.A.J de la table plan_formation (effectue passe à 1 pour le client et la session concernés)
+            String req4 = "Update plan_formation set effectue = 1 Where client_id = " + matricule;
+            req4 += " And formation_id = " + numForm;
+            int nb1 = GestionBdd.envoiRequeteLID(stmt1, req);
+            int nb2 = GestionBdd.envoiRequeteLID(stmt1, req2);
+            int nb3 = GestionBdd.envoiRequeteLID(stmt1, req4);
         }
-        catch(Exception e)
+    public static ObservableList<Session> getLesSessions()
         {
-            System.out.println("Erreur requete3 " + e.getMessage());
+            try
+                {
+                    LocalDate dateaujourdhui = LocalDate.now();
+                    Statement stmt = GestionBdd.connexionBdd(GestionBdd.TYPE_MYSQL, "formarmor", "localhost", "root", "");
+                    Session maSession;
+                    String requete = "SELECT session_formation.id,formation.libelle,session_formation.date_debut,nb_places,nb_inscrits from session_formation,formation where date_debut > "+dateaujourdhui+" and session_formation.formation_id =  formation.id order by date_debut asc";
+                    ResultSet rs = GestionBdd.envoiRequeteLMD(stmt, requete);
+                    while(rs.next())
+                        {
+                            maSession = new Session(rs.getInt("id"),rs.getString("libelle"),rs.getDate("date_debut"),rs.getInt("nb_places"),rs.getInt("nb_inscrits"));
+                            lesSessions2.add(maSession);
+                        }                 
+                }
+            catch(Exception e)
+                {
+                    System.out.println("Erreur requete3 " + e.getMessage());
+                }
+            return lesSessions2;
         }
-        // M.A.J de la table plan_formation (effectue passe à 1 pour le client et la session concernés)
-        String req4 = "Update plan_formation set effectue = 1 Where client_id = " + matricule;
-        req4 += " And formation_id = " + numForm;
-        int nb1 = GestionBdd.envoiRequeteLID(stmt1, req);
-        int nb2 = GestionBdd.envoiRequeteLID(stmt1, req2);
-        int nb3 = GestionBdd.envoiRequeteLID(stmt1, req4);
-    }
 }
