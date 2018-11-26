@@ -30,6 +30,7 @@ public class FXML_GestionSessionController implements Initializable
         @Override
         public void initialize(URL url, ResourceBundle rb) 
             {
+                lesSessions.removeAll(lesSessions);
                 colID.setCellValueFactory(new PropertyValueFactory<Session,String>("id"));
                 colLibelle.setCellValueFactory(new PropertyValueFactory<Session,String>("libFormation"));
                 colDate.setCellValueFactory(new PropertyValueFactory<Session,String>("date_debut"));

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="485.0" prefWidth="769.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controleur.FXML_DetailsSessionsController">
+   <children>
+      <Label layoutX="203.0" layoutY="36.0" text="Details de la session" textFill="RED">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <TableView layoutX="508.0" layoutY="134.0" prefHeight="266.0" prefWidth="204.0">
+        <columns>
+          <TableColumn prefWidth="203.0" text="Nom prénom" />
+        </columns>
+      </TableView>
+      <GridPane layoutX="50.0" layoutY="119.0" prefHeight="296.0" prefWidth="364.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Libelle :  " />
+            <Label text="Niveau : " GridPane.rowIndex="1" />
+            <Label text="Type de formation : " GridPane.rowIndex="2" />
+            <Label text="Description : " GridPane.rowIndex="3" />
+            <Label text="Diplomante : " GridPane.rowIndex="4" />
+            <Label text="Duree : " GridPane.rowIndex="6" />
+            <Label text="Cout de revient : " GridPane.rowIndex="7" />
+            <TextField fx:id="textLibelle" GridPane.columnIndex="1" />
+            <TextField fx:id="textNiveau" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textType" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textDescription" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="textDiplomante" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="textDuree" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="textcoutRevient" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Date début :" GridPane.rowIndex="5" />
+            <TextField fx:id="textDateDebut" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         </children>
+      </GridPane>
+      <Button layoutX="580.0" layoutY="418.0" mnemonicParsing="false" text="Convertir en PDF" />
+      <Label layoutX="508.0" layoutY="95.0" text="Liste des participants : " />
+   </children>
+</AnchorPane>
