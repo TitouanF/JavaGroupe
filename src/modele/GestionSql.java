@@ -72,6 +72,7 @@ public class GestionSql
             req += "and close = 0 and effectue = 0 and s.id Not In ";
             req += "(Select session_formation_id From inscription Where id = '" + client_id + "')";
             ResultSet rs = GestionBdd.envoiRequeteLMD(stmt1,req);
+            
             while (rs.next())
             {
                 // A MODIFIER
@@ -142,4 +143,42 @@ public class GestionSql
                 }
             return lesSessions2;
         }
+    public static DetailSession getLaSession(int idSession)
+        {
+            DetailSession maSession = new DetailSession();
+            try
+                {
+                    Statement stmt = GestionBdd.connexionBdd(GestionBdd.TYPE_MYSQL, "formarmor", "localhost", "root", "");          
+                    String requete = "SELECT * FROM `formation` WHERE id =" + idSession;
+                    ResultSet rs = GestionBdd.envoiRequeteLMD(stmt, requete);
+                    rs.next();
+                            maSession = new DetailSession(rs.getString("libelle"),rs.getString("niveau"),rs.getString("type_form"),rs.getString("description"),rs.getInt("diplomante"),rs.getInt("duree"),rs.getInt("coutrevient"));           
+                }
+            catch(Exception e)
+                {
+                    System.out.println("Erreur requete3 " + e.getMessage());
+                }
+            return maSession;
+        }
+    public static ObservableList<Client> getLesClientsSession(int idSession)
+    {
+       ObservableList<Client> lesClients = FXCollections.observableArrayList();
+       Client unClient = new Client();
+       try
+                {
+                    Statement stmt = GestionBdd.connexionBdd(GestionBdd.TYPE_MYSQL, "formarmor", "localhost", "root", "");          
+                   String req = "SELECT client.* FROM `inscription`,client WHERE session_formation_id = "+idSession+" and client_id = client.id";
+                    ResultSet rs = GestionBdd.envoiRequeteLMD(stmt, req);
+                    while(rs.next())
+                    {
+                            unClient = new Client(rs.getInt("id"), rs.getInt("statut_id"), rs.getInt("nbhcpta"), rs.getInt("nbhbur"), rs.getString("nom"), rs.getString("password"), rs.getString("adresse"), rs.getString("cp"), rs.getString("ville"), rs.getString("email"));           
+                            lesClients.add(unClient);
+                    }
+                }
+            catch(Exception e)
+                {
+                    System.out.println("Erreur requete3 " + e.getMessage());
+                }
+       return lesClients;
+    }
 }
