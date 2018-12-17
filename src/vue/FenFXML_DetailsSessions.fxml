@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="485.0" prefWidth="769.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controleur.FXML_DetailsSessionsController">
+<AnchorPane id="AnchorPane" prefHeight="485.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.FXML_DetailsSessionsController">
    <children>
       <Label layoutX="203.0" layoutY="36.0" text="Details de la session" textFill="RED">
          <font>
@@ -50,7 +49,7 @@
             <TextField fx:id="textDiplomante" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="textDuree" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="textcoutRevient" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="textCoutRevient" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label text="Date début :" GridPane.rowIndex="5" />
             <TextField fx:id="textDateDebut" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>

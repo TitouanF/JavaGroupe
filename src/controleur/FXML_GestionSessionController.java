@@ -1,13 +1,19 @@
 package controleur;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import modele.GestionSql;
 import modele.Session;
 
@@ -39,5 +45,29 @@ public class FXML_GestionSessionController implements Initializable
                 lesSessions = GestionSql.getLesSessions();
                 tableSessions.setItems(lesSessions);
             }    
+        @FXML
+        public void handleDetails()
+        {
+            Session sessionSelectionnee = tableSessions.getSelectionModel().getSelectedItem();
+            if (sessionSelectionnee.getLibFormation() != null)
+            {
+                try
+                 {
+                    MainApp.setMaSessionSelectionnee(sessionSelectionnee);
+                    FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/vue/FenFXML_DetailsSessions.fxml"));  
+                    AnchorPane page=(AnchorPane) loader.load();
+                    Stage dialogStage = new Stage();
+                    Scene scene = new Scene(page);
+                    dialogStage.setScene(scene);
+                    dialogStage.showAndWait();
+                }
+                 catch(IOException ioe)
+                {
 
-    }
+                  System.out.println("ERREUR chargement boite dialogue:" + ioe.getMessage());
+
+                }
+            }
+        }
+}
+    

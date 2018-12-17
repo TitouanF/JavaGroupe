@@ -7,23 +7,37 @@ package controleur;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
+import modele.Session;
 
-/**
- * FXML Controller class
- *
- * @author Titouan FLOCH
- */
 public class FXML_DetailsSessionsController implements Initializable 
 {
-
-    /**
-     * Initializes the controller class.
-     */
+    String libelle;
+    Session session;
+    @FXML
+    TextField textLibelle;
+    @FXML
+    TextField textNiveau;
+    @FXML
+    TextField textType;
+    @FXML
+    TextField textDescription;
+    @FXML
+    TextField textDiplomante;
+    @FXML
+    TextField textDateDebut;
+    @FXML
+    TextField textDuree;
+    @FXML
+    TextField textCoutRevient;
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        // TODO
+        session = MainApp.getMaSessionSelectionnee();
+        textLibelle.setText(session.getLibFormation());
+        
     }    
     
 }
