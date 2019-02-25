@@ -48,6 +48,12 @@ public class FXML_GestionSessionController implements Initializable
         @FXML
         public void handleDetails()
         {
+            if (tableSessions.getSelectionModel().getSelectedItem() == null)
+            {
+                System.out.println("choisissez une session");
+            }
+            else
+            {
             Session sessionSelectionnee = tableSessions.getSelectionModel().getSelectedItem();
             if (sessionSelectionnee.getLibFormation() != null)
             {
@@ -63,10 +69,13 @@ public class FXML_GestionSessionController implements Initializable
                 }
                  catch(IOException ioe)
                 {
-
                   System.out.println("ERREUR chargement boite dialogue:" + ioe.getMessage());
-
                 }
+            }
+            else
+            {
+                System.out.println("choisissez une session");
+            }
             }
         }
 }

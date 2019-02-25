@@ -16,12 +16,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import modele.Client;
+import modele.CreationPDF;
 import modele.DetailSession;
 import modele.GestionSql;
 import modele.Session;
 
 public class FXML_DetailsSessionsController implements Initializable 
 {
+    CreationPDF creerPDF;
     String libelle;
     Session session;
     ObservableList<Client> lesClients = FXCollections.observableArrayList();
@@ -53,12 +55,19 @@ public class FXML_DetailsSessionsController implements Initializable
         sessionRecup = GestionSql.getLaSession(session.getId());
         lesClients = GestionSql.getLesClientsSession(session.getId());
         textLibelle.setText(session.getLibFormation());
+        textLibelle.setEditable(false);
         textNiveau.setText(sessionRecup.getNiveau());
+        textNiveau.setEditable(false);
         textType.setText(sessionRecup.getType_form());
+        textType.setEditable(false);
         textDescription.setText(sessionRecup.getDescription());
+        textDescription.setEditable(false);
         textDateDebut.setText(session.getDate_debut().toString());
+        textDateDebut.setEditable(false);
         textDuree.setText(Integer.toString(sessionRecup.getDuree()));
+        textDuree.setEditable(false);
         textCoutRevient.setText(Integer.toString(sessionRecup.getCoutRevient()));
+        textCoutRevient.setEditable(false);
         colNomPrenom.setCellValueFactory(new PropertyValueFactory<Client,String>("nom"));
         if (sessionRecup.getDiplomante() == 0)
             {
@@ -68,8 +77,21 @@ public class FXML_DetailsSessionsController implements Initializable
             {
                 textDiplomante.setText("oui");
             }
+        textDiplomante.setEditable(false);
         tableClient.setItems(lesClients);
         
-    }    
+    } 
+    @FXML
+    public void handlePDF()
+    {
+         if (creerPDF.creation(lesClients,textLibelle.getText(),textDescription.getText(),textDateDebut.getText()) == true)
+         {
+             System.out.println("Réussite");
+         }
+         else
+         {
+             System.out.println("Echec");
+         }
+    }
     
 }

@@ -72,7 +72,7 @@ public class GestionSql
             req += "and close = 0 and effectue = 0 and s.id Not In ";
             req += "(Select session_formation_id From inscription Where id = '" + client_id + "')";
             ResultSet rs = GestionBdd.envoiRequeteLMD(stmt1,req);
-            
+            System.out.println(req);
             while (rs.next())
             {
                 // A MODIFIER
@@ -93,7 +93,6 @@ public class GestionSql
     public static void insereInscription(int matricule, int session_formation_id)
         {
             Statement stmt1;
-
             GregorianCalendar dateJour = new GregorianCalendar();
             String ddate = dateJour.get(GregorianCalendar.YEAR) + "-" + (dateJour.get(GregorianCalendar.MONTH) + 1) + "-" + dateJour.get(GregorianCalendar.DATE);
             // Insertion dans la table inscription

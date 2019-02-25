@@ -54,7 +54,7 @@
             <TextField fx:id="textDateDebut" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <Button layoutX="580.0" layoutY="418.0" mnemonicParsing="false" text="Convertir en PDF" />
+      <Button layoutX="580.0" layoutY="418.0" mnemonicParsing="false" onAction="#handlePDF" text="Convertir en PDF" />
       <Label layoutX="508.0" layoutY="95.0" text="Liste des participants : " />
    </children>
 </AnchorPane>
