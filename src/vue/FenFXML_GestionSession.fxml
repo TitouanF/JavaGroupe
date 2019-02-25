@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="514.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.FXML_GestionSessionController">
+   <children>
+      <TableView fx:id="tableSessions" layoutX="131.0" layoutY="92.0" prefHeight="331.0" prefWidth="577.0">
+        <columns>
+          <TableColumn fx:id="colID" prefWidth="105.0" text="ID session" />
+          <TableColumn fx:id="colLibelle" prefWidth="99.0" text="Libellé" />
+            <TableColumn fx:id="colDate" prefWidth="102.0" text="Date" />
+            <TableColumn fx:id="colNbPlaces" prefWidth="131.0" text="nombres places" />
+            <TableColumn fx:id="colNbInscrits" prefWidth="142.0" text="nombre inscrits" />
+        </columns>
+      </TableView>
+      <Label layoutX="235.0" layoutY="22.0" text="gestion des sessions" textFill="RED">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <Button layoutX="589.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleDetails" text="Afficher détails" />
+   </children>
+</AnchorPane>
