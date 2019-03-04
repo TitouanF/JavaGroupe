@@ -16,6 +16,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Section;
+import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -24,6 +25,7 @@ import javafx.collections.ObservableList;
 
 public class CreationPDF 
 {
+    static String signature = "                  ";
     public static final String chemin = "C:\\Users\\Titouan FLOCH\\Documents\\pdfTest.pdf";
      private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
@@ -40,7 +42,7 @@ public class CreationPDF
     {
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(chemin));
+            PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Titouan FLOCH\\Documents"));
             document.open();
             addTitlePage(document,libelle,description,date);
             addTableau(document,listeClients);
@@ -71,6 +73,7 @@ public class CreationPDF
     }
     private static void addTableau(Document document,ObservableList<Client> listeClients)throws DocumentException
     {
+        PdfPCell cell,cell2;
         Paragraph preface = new Paragraph();
         addEmptyLine(preface, 1);
         PdfPTable table = new PdfPTable(2);
@@ -78,15 +81,32 @@ public class CreationPDF
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
         PdfPCell c2 = new PdfPCell(new Phrase("signature du salarié"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
       if (listeClients.isEmpty() == true)
       {
-       PdfPCell cell = new PdfPCell(new Phrase("il n'y a pas de salariés inscrits dans cette session"));
+        cell = new PdfPCell(new Phrase("il n'y a pas de salariés inscrits dans cette session"));
         cell.setColspan(2);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
         preface.add(table);
         document.add(preface);
+      }
+      else
+      {
+          int max = listeClients.size();
+          int i;
+          for (i=0;i<max;i++)
+          {
+              cell = new PdfPCell(new Phrase(listeClients.get(i).getNom()));
+              cell2 = new PdfPCell(new Phrase(signature));
+              cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+              cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+              table.addCell(cell);
+              table.addCell(cell2);
+          }
+          preface.add(table);
+          document.add(preface);
       }
     }
 
